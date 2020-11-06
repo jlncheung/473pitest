@@ -1,0 +1,3318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>DepthFirstIterator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (C) Copyright 2003-2020, by Liviu Rau and Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * JGraphT : a free Java graph-theory library</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the CONTRIBUTORS.md file distributed with this work for additional</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This program and the accompanying materials are made available under the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * terms of the Eclipse Public License 2.0 which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.eclipse.org/legal/epl-2.0, or the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * GNU Lesser General Public License v2.1 or later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SPDX-License-Identifier: EPL-2.0 OR LGPL-2.1-or-later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.jgrapht.traverse;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A depth-first iterator for a directed or undirected graph.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * For this iterator to work correctly the graph must not be modified during iteration. Currently</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * there are no means to ensure that, nor to fail-fast. The results of such modifications are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * undefined.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;V&#62; the graph vertex type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; the graph edge type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Liviu Rau</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Barak Naveh</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class DepthFirstIterator&#60;V, E&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    extends</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    CrossComponentIterator&#60;V, E, DepthFirstIterator.VisitColor&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sentinel object. Unfortunately, we can&#39;t use null, because ArrayDeque won&#39;t accept those. And</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * we don&#39;t want to rely on the caller to provide a sentinel object for us. So we have to play</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * typecasting games.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Object SENTINEL = new Object();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Standard vertex visit state enumeration.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    protected static enum VisitColor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Vertex has not been returned via iterator yet.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        WHITE,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Vertex has been returned via iterator, but we&#39;re not done with all of its out-edges yet.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        GRAY,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Vertex has been returned via iterator, and we&#39;re done with all of its out-edges.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        BLACK</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private Deque&#60;Object&#62; stack = new ArrayDeque&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new depth-first iterator for the specified graph.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param g the graph to be iterated.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DepthFirstIterator(Graph&#60;V, E&#62; g)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(g, (V) null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new depth-first iterator for the specified graph. Iteration will start at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified start vertex and will be limited to the connected component that includes that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * vertex. If the specified start vertex is &#60;code&#62;null&#60;/code&#62;, iteration will start at an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * arbitrary vertex and will not be limited, that is, will be able to traverse all the graph.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param g the graph to be iterated.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param startVertex the vertex iteration to be started.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DepthFirstIterator(Graph&#60;V, E&#62; g, V startVertex)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(g, startVertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new depth-first iterator for the specified graph. Iteration will start at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified start vertices and will be limited to the connected component that includes those</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * vertices. If the specified start vertices is &#60;code&#62;null&#60;/code&#62;, iteration will start at an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * arbitrary vertex and will not be limited, that is, will be able to traverse all the graph.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param g the graph to be iterated.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param startVertices the vertices iteration to be started.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DepthFirstIterator(Graph&#60;V, E&#62; g, Iterable&#60;V&#62; startVertices)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(g, startVertices);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected boolean isConnectedComponentExhausted()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        for (;;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_115'>1</a>
+<span>
+1. isConnectedComponentExhausted : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (stack.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_116'>1</a>
+<span>
+1. isConnectedComponentExhausted : replaced boolean return with false for org/jgrapht/traverse/DepthFirstIterator::isConnectedComponentExhausted &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_118'>1</a>
+<span>
+1. isConnectedComponentExhausted : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (stack.getLast() != SENTINEL) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // Found a non-sentinel.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_120'>1</a>
+<span>
+1. isConnectedComponentExhausted : replaced boolean return with true for org/jgrapht/traverse/DepthFirstIterator::isConnectedComponentExhausted &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Found a sentinel: pop it, record the finish time,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // and then loop to check the rest of the stack.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Pop null we peeked at above.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            stack.removeLast();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // This will pop corresponding vertex to be recorded as finished.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_130'/>
+130
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_130'>1</a>
+<span>
+1. isConnectedComponentExhausted : removed call to org/jgrapht/traverse/DepthFirstIterator::recordFinish &rarr; TIMED_OUT<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            recordFinish();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void encounterVertex(V vertex, E edge)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        putSeenData(vertex, VisitColor.WHITE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_138'>1</a>
+<span>
+1. encounterVertex : removed call to java/util/Deque::addLast &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        stack.addLast(vertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void encounterVertexAgain(V vertex, E edge)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        VisitColor color = getSeenData(vertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_145'/>
+145
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_145'>1</a>
+<span>
+1. encounterVertexAgain : negated conditional &rarr; TIMED_OUT<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (color != VisitColor.WHITE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // We&#39;ve already visited this vertex; no need to mess with the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // stack (either it&#39;s BLACK and not there at all, or it&#39;s GRAY</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // and therefore just a sentinel).</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Since we&#39;ve encountered it before, and it&#39;s still WHITE, it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // *must* be on the stack. Use removeLastOccurrence on the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // assumption that for typical topologies and traversals,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // it&#39;s likely to be nearer the top of the stack than</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // the bottom of the stack.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        boolean found = stack.removeLastOccurrence(vertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        assert (found);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_159'/>
+159
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_159'>1</a>
+<span>
+1. encounterVertexAgain : removed call to java/util/Deque::addLast &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        stack.addLast(vertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected V provideNextVertex()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        V v;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        for (;;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            Object o = stack.removeLast();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_168'>1</a>
+<span>
+1. provideNextVertex : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (o == SENTINEL) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // This is a finish-time sentinel we previously pushed.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_170'>1</a>
+<span>
+1. provideNextVertex : removed call to org/jgrapht/traverse/DepthFirstIterator::recordFinish &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                recordFinish();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // Now carry on with another pop until we find a non-sentinel</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // Got a real vertex to start working on</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                v = TypeUtil.uncheckedCast(o);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Push a sentinel for v onto the stack so that we&#39;ll know</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // when we&#39;re done with it.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_181'/>
+181
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_181'>1</a>
+<span>
+1. provideNextVertex : removed call to java/util/Deque::addLast &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        stack.addLast(v);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_182'/>
+182
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_182'>1</a>
+<span>
+1. provideNextVertex : removed call to java/util/Deque::addLast &rarr; TIMED_OUT<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        stack.addLast(SENTINEL);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        putSeenData(v, VisitColor.GRAY);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_184'/>
+184
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_184'>1</a>
+<span>
+1. provideNextVertex : replaced return value with null for org/jgrapht/traverse/DepthFirstIterator::provideNextVertex &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return v;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void recordFinish()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        V v = TypeUtil.uncheckedCast(stack.removeLast());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        putSeenData(v, VisitColor.BLACK);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_191'/>
+191
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_191'>1</a>
+<span>
+1. recordFinish : removed call to org/jgrapht/traverse/DepthFirstIterator::finishVertex &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        finishVertex(v);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Retrieves the LIFO stack of vertices which have been encountered but not yet visited (WHITE).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This stack also contains &#60;em&#62;sentinel&#60;/em&#62; entries representing vertices which have been</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * visited but are still GRAY. A sentinel entry is a sequence (v, SENTINEL), whereas a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * non-sentinel entry is just (v).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return stack</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Deque&#60;Object&#62; getStack()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_204'/>
+204
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_204'>1</a>
+<span>
+1. getStack : replaced return value with null for org/jgrapht/traverse/DepthFirstIterator::getStack &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return stack;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@218a0170_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isConnectedComponentExhausted<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testBug1169182(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isConnectedComponentExhausted<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> replaced boolean return with false for org/jgrapht/traverse/DepthFirstIterator::isConnectedComponentExhausted &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isConnectedComponentExhausted<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isConnectedComponentExhausted<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testBug1169182(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> replaced boolean return with true for org/jgrapht/traverse/DepthFirstIterator::isConnectedComponentExhausted &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_130'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isConnectedComponentExhausted<br/><b>Killed by : </b>none</span></span> removed call to org/jgrapht/traverse/DepthFirstIterator::recordFinish &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encounterVertex<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testBug1169182(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> removed call to java/util/Deque::addLast &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_145'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encounterVertexAgain<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_159'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encounterVertexAgain<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testBug1169182(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> removed call to java/util/Deque::addLast &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>provideNextVertex<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_170'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>provideNextVertex<br/><b>Killed by : </b>none</span></span> removed call to org/jgrapht/traverse/DepthFirstIterator::recordFinish &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_181'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>provideNextVertex<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> removed call to java/util/Deque::addLast &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_182'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>provideNextVertex<br/><b>Killed by : </b>none</span></span> removed call to java/util/Deque::addLast &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_184'>184</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_184'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>provideNextVertex<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> replaced return value with null for org/jgrapht/traverse/DepthFirstIterator::provideNextVertex &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_191'>191</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_191'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>recordFinish<br/><b>Killed by : </b>org.jgrapht.traverse.DepthFirstIteratorTest.testDirectedGraphViaCCI(org.jgrapht.traverse.DepthFirstIteratorTest)</span></span> removed call to org/jgrapht/traverse/DepthFirstIterator::finishVertex &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@218a0170_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@218a0170_204'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStack<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/jgrapht/traverse/DepthFirstIterator::getStack &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[99](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (37 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[3](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[59](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (15 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[36](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testMultipleEdges01(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[19](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[31](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[76](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[71](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (18 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineAncestors02(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance2(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[13](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[94](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (11 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[60](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[47](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph1(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testGreedy[100 Points](org.jgrapht.alg.tour.GeometricTSPTest) (687 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[20](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[87](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (30 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[93](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (32 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[83](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (16 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[53](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (12 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[54](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[24](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[14](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance3(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (5 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testDirectedGraphViaCCI(org.jgrapht.traverse.DepthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testDirectedGraph(org.jgrapht.traverse.DepthFirstIteratorTest) (6 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testDirectedWithoutCycle(org.jgrapht.alg.cycle.CycleDetectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[8](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testDirectedWithCycle(org.jgrapht.alg.cycle.CycleDetectorTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNotShortestPathEdgesGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[89](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testBug1169182(org.jgrapht.traverse.DepthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[95](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[75](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInvalidGraph(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[69](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance4(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (8 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[49](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[29](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[61](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[41](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.tour.TwoApproxMetricTSPTest.testWikiExampleSymmetric4Cities(org.jgrapht.alg.tour.TwoApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[81](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (28 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexBestImprovement(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (64 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testCycleDetectionInRandomGraphBuild(org.jgrapht.graph.DirectedAcyclicGraphTest) (197 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[23](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[43](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[30](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[90](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (24 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph2(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[70](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (11 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[50](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[10](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexAndSubtree(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (2425 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexTabu(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (791 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceSubtree(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (884 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[28](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[48](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[9](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance6(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (6 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testRestHeapGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[88](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (13 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testDirectedWithDoubledCycle(org.jgrapht.alg.cycle.CycleDetectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[68](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (22 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[4](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest.testLessThanKPaths(org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertex(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (64 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexTabuBestImprovement(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (609 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph3(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[35](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[42](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[55](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (15 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[62](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testGreedy[1,000 Points](org.jgrapht.alg.tour.GeometricTSPTest) (1112 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[15](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[82](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (12 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance1(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (18 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[79](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (11 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[85](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (17 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[22](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.tour.TwoApproxMetricTSPTest.testComplete(org.jgrapht.alg.tour.TwoApproxMetricTSPTest) (29 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[39](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[51](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[16](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[56](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[91](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (31 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[0](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[74](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (17 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[33](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceSubtreeTabu(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (1424 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[6](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[27](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[67](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[80](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[40](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph3(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexAndSubtreeTabu(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (17666 ms)</li><li>org.jgrapht.alg.tour.TwoApproxMetricTSPTest.testStar(org.jgrapht.alg.tour.TwoApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineDescendants01(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[73](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (20 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[5](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[63](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstance3(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[44](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[34](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[96](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (24 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[86](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[11](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[21](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstance2(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineDescendants00(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineAncestors00(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.DepthFirstIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph2(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstance1(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph1(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[32](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[12](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineDescendants02(org.jgrapht.graph.DirectedAcyclicGraphTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNoSidetracksInGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[66](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[2](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[7](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[26](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[46](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineAncestors01(org.jgrapht.graph.DirectedAcyclicGraphTest) (0 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testGreedy[10 Points](org.jgrapht.alg.tour.GeometricTSPTest) (484 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[64](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (18 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[84](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (18 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[37](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[17](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance5(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (8 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testDirectedGraphNullConstructors(org.jgrapht.traverse.DepthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[57](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (15 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[77](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (34 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[97](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[18](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (5419 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[38](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest.testCyclicGraph(org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[98](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (32 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[78](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (14 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[92](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (33 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[58](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[52](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[45](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSourceEqualsTarget(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.traverse.EdgeSelectionTest.testEdgeSelectionOverride(org.jgrapht.traverse.EdgeSelectionTest) (3 ms)</li><li>org.jgrapht.traverse.IgnoreDirectionTest.testDirectedGraph(org.jgrapht.traverse.IgnoreDirectionTest) (1 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testVertexEquals(org.jgrapht.alg.cycle.CycleDetectorTest) (0 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstanceWithRandomness(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[65](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (21 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[72](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[25](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[1](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.5.2
+
+</body>
+</html>

@@ -1,0 +1,3747 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>DijkstraClosestFirstIterator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (C) Copyright 2003-2020, by John V Sichi, Dimitrios Michail and Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * JGraphT : a free Java graph-theory library</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the CONTRIBUTORS.md file distributed with this work for additional</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This program and the accompanying materials are made available under the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * terms of the Eclipse Public License 2.0 which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.eclipse.org/legal/epl-2.0, or the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * GNU Lesser General Public License v2.1 or later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SPDX-License-Identifier: EPL-2.0 OR LGPL-2.1-or-later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.jgrapht.alg.shortestpath;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.alg.interfaces.ShortestPathAlgorithm.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.alg.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jheaps.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jheaps.tree.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.function.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A light-weight version of the closest-first iterator for a directed or undirected graphs. For</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this iterator to work correctly the graph must not be modified during iteration. Currently there</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * are no means to ensure that, nor to fail-fast. The results of such modifications are undefined.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The metric for &#60;i&#62;closest&#60;/i&#62; here is the weighted path length from a start vertex, i.e.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Graph.getEdgeWeight(Edge) is summed to calculate path length. Negative edge weights will result</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * in an IllegalArgumentException. Optionally, path length may be bounded by a finite radius. This</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * iterator can use a custom heap implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * NOTE: This is an internal iterator for use in shortest paths algorithms. For an iterator that is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * suitable to return to the users see {@link org.jgrapht.traverse.ClosestFirstIterator}. This</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * implementation is faster since it does not support graph traversal listeners nor disconnected</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * components.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;V&#62; the graph vertex type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; the graph edge type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author John V. Sichi</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Dimitrios Michail</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class DijkstraClosestFirstIterator&#60;V, E&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    implements</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Iterator&#60;V&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Graph&#60;V, E&#62; graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final V source;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final double radius;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Map&#60;V, AddressableHeap.Handle&#60;Double, Pair&#60;V, E&#62;&#62;&#62; seen;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private AddressableHeap&#60;Double, Pair&#60;V, E&#62;&#62; heap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new iterator for the specified graph. Iteration will start at the specified start</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * vertex and will be limited to the connected component that includes that vertex. This</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * iterator will use pairing heap as a default heap implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param graph the graph to be iterated.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param source the source vertex</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DijkstraClosestFirstIterator(Graph&#60;V, E&#62; graph, V source)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(graph, source, Double.POSITIVE_INFINITY, PairingHeap::new);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new radius-bounded iterator for the specified graph. Iteration will start at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified start vertex and will be limited to the subset of the connected component which</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * includes that vertex and is reachable via paths of weighted length less than or equal to the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified radius. This iterator will use pairing heap as a default heap implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param graph the graph</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param source the source vertex</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param radius limit on weighted path length, or Double.POSITIVE_INFINITY for unbounded search</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DijkstraClosestFirstIterator(Graph&#60;V, E&#62; graph, V source, double radius)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(graph, source, radius, PairingHeap::new);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new iterator for the specified graph. Iteration will start at the specified start</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * vertex and will be limited to the connected component that includes that vertex. This</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * iterator will use heap supplied by the {@code heapSupplier}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param graph the graph to be iterated.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param source the source vertex</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param heapSupplier supplier of the preferable heap implementation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DijkstraClosestFirstIterator(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Graph&#60;V, E&#62; graph, V source, Supplier&#60;AddressableHeap&#60;Double, Pair&#60;V, E&#62;&#62;&#62; heapSupplier)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        this(graph, source, Double.POSITIVE_INFINITY, heapSupplier);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new radius-bounded iterator for the specified graph. Iteration will start at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified start vertex and will be limited to the subset of the connected component which</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * includes that vertex and is reachable via paths of weighted length less than or equal to the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified radius. This iterator will use the heap supplied by {@code heapSupplier}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param graph the graph</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param source the source vertex</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param radius limit on weighted path length, or Double.POSITIVE_INFINITY for unbounded search</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param heapSupplier supplier of the preferable heap implementation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DijkstraClosestFirstIterator(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Graph&#60;V, E&#62; graph, V source, double radius,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Supplier&#60;AddressableHeap&#60;Double, Pair&#60;V, E&#62;&#62;&#62; heapSupplier)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.graph = Objects.requireNonNull(graph, &#34;Graph cannot be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.source = Objects.requireNonNull(source, &#34;Source vertex cannot be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Objects.requireNonNull(heapSupplier, &#34;Heap supplier cannot be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_122'/>
+122
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_122'>2</a>
+<span>
+1. &#60;init&#62; : changed conditional boundary &rarr; TIMED_OUT<br/>
+2. &#60;init&#62; : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (radius &#60; 0.0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;Radius must be non-negative&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.radius = radius;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.seen = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.heap = heapSupplier.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // initialize with source vertex</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_129'>1</a>
+<span>
+1. &#60;init&#62; : removed call to org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::updateDistance &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        updateDistance(source, null, 0d);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean hasNext()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_138'>1</a>
+<span>
+1. hasNext : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (heap.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_139'>1</a>
+<span>
+1. hasNext : replaced boolean return with true for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::hasNext &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        AddressableHeap.Handle&#60;Double, Pair&#60;V, E&#62;&#62; vNode = heap.findMin();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        double vDistance = vNode.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_143'/>
+143
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_143'>2</a>
+<span>
+1. hasNext : changed conditional boundary &rarr; SURVIVED<br/>
+2. hasNext : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (radius &#60; vDistance) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_144'/>
+144
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_144'>1</a>
+<span>
+1. hasNext : removed call to org/jheaps/AddressableHeap::clear &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            heap.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_145'/>
+145
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_145'>1</a>
+<span>
+1. hasNext : replaced boolean return with true for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::hasNext &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_147'>1</a>
+<span>
+1. hasNext : replaced boolean return with false for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::hasNext &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public V next()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_156'/>
+156
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_156'>1</a>
+<span>
+1. next : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!hasNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new NoSuchElementException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // settle next node</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        AddressableHeap.Handle&#60;Double, Pair&#60;V, E&#62;&#62; vNode = heap.deleteMin();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        V v = vNode.getValue().getFirst();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        double vDistance = vNode.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // relax edges</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (E e : graph.outgoingEdgesOf(v)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            V u = Graphs.getOppositeVertex(graph, e, v);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            double eWeight = graph.getEdgeWeight(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_169'/>
+169
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_169'>2</a>
+<span>
+1. next : changed conditional boundary &rarr; KILLED<br/>
+2. next : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (eWeight &#60; 0.0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                throw new IllegalArgumentException(&#34;Negative edge weight not allowed&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_172'/>
+172
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_172'>2</a>
+<span>
+1. next : Replaced double addition with subtraction &rarr; KILLED<br/>
+2. next : removed call to org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::updateDistance &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            updateDistance(u, e, vDistance + eWeight);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_175'>1</a>
+<span>
+1. next : replaced return value with null for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::next &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return v;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Return the paths computed by this iterator. Only the paths to vertices which are already</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * returned by the iterator will be shortest paths. Additional paths to vertices which are not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * yet returned (settled) by the iterator might be included with the following properties: the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * distance will be an upper bound on the actual shortest path and the distance will be inside</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the radius of the search.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the single source paths</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public SingleSourcePaths&#60;V, E&#62; getPaths()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_189'/>
+189
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_189'>1</a>
+<span>
+1. getPaths : replaced return value with null for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::getPaths &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new TreeSingleSourcePathsImpl&#60;&#62;(graph, source, getDistanceAndPredecessorMap());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Return all paths using the traditional representation of the shortest path tree, which stores</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * for each vertex (a) the distance of the path from the source vertex and (b) the last edge</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * used to reach the vertex from the source vertex.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Only the paths to vertices which are already returned by the iterator will be shortest paths.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Additional paths to vertices which are not yet returned (settled) by the iterator might be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * included with the following properties: the distance will be an upper bound on the actual</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * shortest path and the distance will be inside the radius of the search.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a distance and predecessor map</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Map&#60;V, Pair&#60;Double, E&#62;&#62; getDistanceAndPredecessorMap()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Map&#60;V, Pair&#60;Double, E&#62;&#62; distanceAndPredecessorMap = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (AddressableHeap.Handle&#60;Double, Pair&#60;V, E&#62;&#62; vNode : seen.values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            double vDistance = vNode.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_210'/>
+210
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_210'>2</a>
+<span>
+1. getDistanceAndPredecessorMap : changed conditional boundary &rarr; SURVIVED<br/>
+2. getDistanceAndPredecessorMap : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (radius &#60; vDistance) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            V v = vNode.getValue().getFirst();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            distanceAndPredecessorMap.put(v, Pair.of(vDistance, vNode.getValue().getSecond()));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_217'/>
+217
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_217'>1</a>
+<span>
+1. getDistanceAndPredecessorMap : replaced return value with null for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::getDistanceAndPredecessorMap &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return distanceAndPredecessorMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void updateDistance(V v, E e, double distance)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        AddressableHeap.Handle&#60;Double, Pair&#60;V, E&#62;&#62; node = seen.get(v);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_223'/>
+223
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_223'>1</a>
+<span>
+1. updateDistance : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (node == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_224'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            node = heap.insert(distance, Pair.of(v, e));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            seen.put(v, node);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_226'/>
+226
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_226'>2</a>
+<span>
+1. updateDistance : changed conditional boundary &rarr; TIMED_OUT<br/>
+2. updateDistance : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        } else if (distance &#60; node.getKey()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_227'/>
+227
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_227'>1</a>
+<span>
+1. updateDistance : removed call to org/jheaps/AddressableHeap$Handle::decreaseKey &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            node.decreaseKey(distance);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_228'/>
+228
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_228'>1</a>
+<span>
+1. updateDistance : removed call to org/jheaps/AddressableHeap$Handle::setValue &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            node.setValue(Pair.of(node.getValue().getFirst(), e));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4811a138_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_122'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>&#60;init&#62;<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> removed call to org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::updateDistance &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> replaced boolean return with true for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::hasNext &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_143'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_144'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>none</span></span> removed call to org/jheaps/AddressableHeap::clear &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> replaced boolean return with true for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::hasNext &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasNext<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> replaced boolean return with false for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::hasNext &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_156'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>next<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>next<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testMaximumKPathsAreReturned(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>next<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>next<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> Replaced double addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>next<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> removed call to org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::updateDistance &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>next<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> replaced return value with null for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::next &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_189'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPaths<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> replaced return value with null for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::getPaths &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_210'>210</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_210'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDistanceAndPredecessorMap<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDistanceAndPredecessorMap<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_217'>217</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_217'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDistanceAndPredecessorMap<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> replaced return value with null for org/jgrapht/alg/shortestpath/DijkstraClosestFirstIterator::getDistanceAndPredecessorMap &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_223'>223</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_223'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateDistance<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_226'>226</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_226'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateDistance<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateDistance<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_227'>227</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_227'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateDistance<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> removed call to org/jheaps/AddressableHeap$Handle::decreaseKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4811a138_228'>228</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4811a138_228'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateDistance<br/><b>Killed by : </b>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest)</span></span> removed call to org/jheaps/AddressableHeap$Handle::setValue &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkBullGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (35 ms)</li><li>org.jgrapht.alg.shortestpath.ALTAdmissibleHeuristicTest.testRandom(org.jgrapht.alg.shortestpath.ALTAdmissibleHeuristicTest) (467 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph2(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.scoring.HarmonicCentralityTest.testUndirected(org.jgrapht.alg.scoring.HarmonicCentralityTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testSinglePath(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testWikipediaGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.TransitNodeRoutingPrecomputationTest.testThreeVertices(org.jgrapht.alg.shortestpath.TransitNodeRoutingPrecomputationTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest.testDifferentSourcesAndTargetsMultigraph(org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testCyclicGraph3(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testDirectedGraph5(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testPseudoGraph1(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.GraphMeasurerTest.testVertexEccentricityG1(org.jgrapht.alg.shortestpath.GraphMeasurerTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testLinear(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraShortestPathTest.testGetPathWeight(org.jgrapht.alg.shortestpath.DijkstraShortestPathTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testMaximumKPathsAreReturned(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testDirectedGraph3(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testClique(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (8 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testGomoryHuExampleGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkGoldnerHararyGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2479 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testWikipediaGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkClawGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (3 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph1(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.ListSingleSourcePathsTest.test(org.jgrapht.alg.shortestpath.ListSingleSourcePathsTest) (4 ms)</li><li>org.jgrapht.alg.shortestpath.BidirectionalDijkstraShortestPathTest.testRandomGraphsWeightedUndirected(org.jgrapht.alg.shortestpath.BidirectionalDijkstraShortestPathTest) (14 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testForbidAll(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (2 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkThomsenGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (7 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraShortestPathTest.testShortestPathTree(org.jgrapht.alg.shortestpath.DijkstraShortestPathTest) (0 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testSingleEdgeGraph(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.temp(org.jgrapht.alg.cycle.ChinesePostmanTest) (4 ms)</li><li>org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest) (578 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testSimpleGraph1(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkContainsShortestOddHole(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1 ms)</li><li>org.jgrapht.alg.scoring.ClosenessCentralityTest.testIncomingNoNormalization(org.jgrapht.alg.scoring.ClosenessCentralityTest) (0 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph4(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testDirectedGraph1(org.jgrapht.alg.cycle.ChinesePostmanTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testThreeDisjointPathsGraphIsNotChanged(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest.testTwoVertices(org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.BidirectionalDijkstraShortestPathTest.testRandomGraphsDirected(org.jgrapht.alg.shortestpath.BidirectionalDijkstraShortestPathTest) (10 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testDisconnectedGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (4 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkKrackhardtKiteGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1839 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testDisconnectedGraph(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testThreeDisjointPathsWithMultiHitsOnEdge(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNotShortestPathEdgesGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testTriangleGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkDiamondGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest.testRandomFixedSeed17(org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest) (99 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testTwoDisjointPaths(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testOnlyShortestPathGraph(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testDisconnectedGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testTwoDisjointPathsNeedToMerge(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNoPathInGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest) (4816 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkJewel(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2 ms)</li><li>org.jgrapht.perf.shortestpath.DijkstraShortestPathPerformanceTest.testBenchmark(org.jgrapht.perf.shortestpath.DijkstraShortestPathPerformanceTest) (5569752 ms)</li><li>org.jgrapht.alg.shortestpath.JohnsonShortestPathsTest.testRandomGraphsCompareWithFloydWarshall(org.jgrapht.alg.shortestpath.JohnsonShortestPathsTest) (322 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testNoPathInGraph(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.BidirectionalAStarShortestPathTest.testRandomGraphs(org.jgrapht.alg.shortestpath.BidirectionalAStarShortestPathTest) (8900 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testSimpleGraph4(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (1957 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph2(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest.testRandomFixedSeed8(org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest) (91 ms)</li><li>org.jgrapht.alg.scoring.HarmonicCentralityTest.testSingletonWithoutNormalize(org.jgrapht.alg.scoring.HarmonicCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testNotShortestPathEdgesGraph(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testFirstPathEdgesFirst(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testNoPathLeft(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.scoring.HarmonicCentralityTest.testOutgoing(org.jgrapht.alg.scoring.HarmonicCentralityTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest.testOneVertex(org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testRestHeapGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkPyramid(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (20 ms)</li><li>org.jgrapht.alg.scoring.HarmonicCentralityTest.testIncomingNoNormalization(org.jgrapht.alg.scoring.HarmonicCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testWikipediaGraph(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest.testRandomFixedSeed13(org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest) (137 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest.testLessThanKPaths(org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testUnweightedGraph(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkFruchtGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (5 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testSourcesEqualTargetsSimpleGraph(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (3 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkButterflyGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (11 ms)</li><li>org.jgrapht.alg.shortestpath.YenKShortestPathTest.testCyclicGraph(org.jgrapht.alg.shortestpath.YenKShortestPathTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph3(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph3(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkHeawoodGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (25268 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest.testNoPath(org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testRandomGraphs(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (111 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testGraphWithNoEdges(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testSourcesEqualTargetsMultigraph(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.TransitNodeRoutingPrecomputationTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.TransitNodeRoutingPrecomputationTest) (1540 ms)</li><li>org.jgrapht.alg.scoring.ClosenessCentralityTest.testDisconnectedOutgoing(org.jgrapht.alg.scoring.ClosenessCentralityTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.JohnsonShortestPathsTest.testWikipediaExample(org.jgrapht.alg.shortestpath.JohnsonShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testDifferentSourcesAndTargetsSimpleGraph(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (7 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testDirectedGraph4(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.scoring.ClosenessCentralityTest.testUndirected(org.jgrapht.alg.scoring.ClosenessCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testUnweightedGraphIsNotChanged(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testSimpleGraph2(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testThreeDisjointPathsReverseEdgeExist(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkConfigurationType2(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraShortestPathTest.testConstructor(org.jgrapht.alg.shortestpath.DijkstraShortestPathTest) (0 ms)</li><li>org.jgrapht.alg.scoring.HarmonicCentralityTest.testIncoming(org.jgrapht.alg.scoring.HarmonicCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testMoreSourcesThanTargets1(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (10 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph1(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testNoPath(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (3 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkGrötzschGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testGraphWithMultipleEdges(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest.testRandomFixedSeed(org.jgrapht.alg.shortestpath.AllPairsShortestPathsTest) (216 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testGomoryHuExampleGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testSquareGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testSquareGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testTwoDisjointPathsJointNode(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph3(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testNonTrivialPathValidator(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testDisconnectedGraphIsNotChanged(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest.testUndirected(org.jgrapht.alg.shortestpath.DijkstraClosestFirstIteratorTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.YenKShortestPathTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.YenKShortestPathTest) (5198 ms)</li><li>org.jgrapht.alg.shortestpath.ALTAdmissibleHeuristicTest.testRandomAdmissible(org.jgrapht.alg.shortestpath.ALTAdmissibleHeuristicTest) (599 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest.testSourcesEqualTargetsSimpleGraph(org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.ContractionHierarchyBidirectionalDijkstraTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.ContractionHierarchyBidirectionalDijkstraTest) (11080 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testCyclicGraph2(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testPseudoGraph2(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.JohnsonShortestPathsTest.testIssue408(org.jgrapht.alg.shortestpath.JohnsonShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNoPathLeft(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.scoring.ClosenessCentralityTest.testSingletonWithNormalize(org.jgrapht.alg.scoring.ClosenessCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.GraphMeasurerTest.testVertexEccentricityG2(org.jgrapht.alg.shortestpath.GraphMeasurerTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testDirectedGraphWithMultipleEdgesAndSelfLoop(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraShortestPathTest.testNonNegativeWeights(org.jgrapht.alg.shortestpath.DijkstraShortestPathTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkFranklinGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (9626 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph2(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testRing(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.scoring.ClosenessCentralityTest.testOutgoing(org.jgrapht.alg.scoring.ClosenessCentralityTest) (0 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testGraphWithNoEdges(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testTriangleGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testStar(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkTietzeGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testGraphWithSelfloop(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.alg.scoring.ClosenessCentralityTest.testIncoming(org.jgrapht.alg.scoring.ClosenessCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testTwoDisjointPathsWithReversedEdgesExist(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkTutteGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (32 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph1(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testSourceEqualsTarget(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testThreeDisjointPaths(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkDodecahedronGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (6 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNoSidetracksInGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testCyclicGraph1(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraShortestPathTest.testPathBetween(org.jgrapht.alg.shortestpath.DijkstraShortestPathTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testMoreSourcesThanTargets2(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (5 ms)</li><li>org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest.testThreeVertices(org.jgrapht.alg.shortestpath.TransitNodeRoutingShortestPathTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.DeltaSteppingShortestPathTest.testGetPaths2(org.jgrapht.alg.shortestpath.DeltaSteppingShortestPathTest) (32682 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testPseudoGraph3(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.DefaultManyToManyShortestPathsTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.DefaultManyToManyShortestPathsTest) (60 ms)</li><li>org.jgrapht.alg.scoring.ClosenessCentralityTest.testSingletonWithoutNormalize(org.jgrapht.alg.scoring.ClosenessCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest.testSimpleGraph3(org.jgrapht.alg.shortestpath.YenShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.scoring.HarmonicCentralityTest.testDisconnectedOutgoing(org.jgrapht.alg.scoring.HarmonicCentralityTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkPetersenGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.YenKShortestPathTest.testLessThanKPaths(org.jgrapht.alg.shortestpath.YenKShortestPathTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph5(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testRandomGraphs(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (100 ms)</li><li>org.jgrapht.alg.shortestpath.FloydWarshallShortestPathsTest.testCompareWithDijkstra(org.jgrapht.alg.shortestpath.FloydWarshallShortestPathsTest) (10 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (5419 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest.testCyclicGraph(org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testDirectedGraph2(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testSequentialCallsSanity(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest.testDifferentSourcesAndTargetsSimpleGraph(org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.FloydWarshallPseudographsTest.testRandomGraphs(org.jgrapht.alg.shortestpath.FloydWarshallPseudographsTest) (921 ms)</li><li>org.jgrapht.alg.shortestpath.ContractionHierarchyBidirectionalDijkstraTest.testRingGraph(org.jgrapht.alg.shortestpath.ContractionHierarchyBidirectionalDijkstraTest) (10 ms)</li><li>org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest.testDifferentSourcesAndTargetsMultigraph(org.jgrapht.alg.shortestpath.CHManyToManyShortestPathsTest) (24 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest.testKEqualsZero(org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSourceEqualsTarget(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.scoring.HarmonicCentralityTest.testSingletonWithNormalize(org.jgrapht.alg.scoring.HarmonicCentralityTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.BidirectionalDijkstraShortestPathTest.testRandomGraphsDirectedWithRadius(org.jgrapht.alg.shortestpath.BidirectionalDijkstraShortestPathTest) (13 ms)</li><li>org.jgrapht.alg.shortestpath.TransitNodeRoutingPrecomputationTest.testOneVertex(org.jgrapht.alg.shortestpath.TransitNodeRoutingPrecomputationTest) (3 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkCleanOddHole(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (3 ms)</li><li>org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest.testSourcesEqualTargetsMultigraph(org.jgrapht.alg.shortestpath.DijkstraManyToManyShortestPathsTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest.testTwoDisjointPathsNoNeedToMerge(org.jgrapht.alg.shortestpath.SuurballeKDisjointShortestPathsTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkHerschelGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (7301 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.5.2
+
+</body>
+</html>

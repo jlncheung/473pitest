@@ -1,0 +1,4562 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>AbstractGraphIterator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (C) Copyright 2003-2020, by Barak Naveh and Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * JGraphT : a free Java graph-theory library</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the CONTRIBUTORS.md file distributed with this work for additional</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This program and the accompanying materials are made available under the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * terms of the Eclipse Public License 2.0 which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.eclipse.org/legal/epl-2.0, or the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * GNU Lesser General Public License v2.1 or later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SPDX-License-Identifier: EPL-2.0 OR LGPL-2.1-or-later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.jgrapht.traverse;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.event.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An empty implementation of a graph iterator to minimize the effort required to implement graph</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * iterators.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;V&#62; the graph vertex type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; the graph edge type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Barak Naveh</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class AbstractGraphIterator&#60;V, E&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    implements</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    GraphIterator&#60;V, E&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private final Set&#60;TraversalListener&#60;V, E&#62;&#62; traversalListeners = new LinkedHashSet&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // We keep this cached redundantly with traversalListeners.size()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // so that subclasses can use it as a fast check to see if</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // event firing calls can be skipped.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    protected int nListeners = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final FlyweightEdgeEvent&#60;V, E&#62; reusableEdgeEvent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final FlyweightVertexEvent&#60;V&#62; reusableVertexEvent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final Graph&#60;V, E&#62; graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected boolean crossComponentTraversal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected boolean reuseEvents;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create a new iterator</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param graph the graph</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public AbstractGraphIterator(Graph&#60;V, E&#62; graph)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.graph = Objects.requireNonNull(graph, &#34;graph must not be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.reusableEdgeEvent = new FlyweightEdgeEvent&#60;&#62;(this, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.reusableVertexEvent = new FlyweightVertexEvent&#60;&#62;(this, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.crossComponentTraversal = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.reuseEvents = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the graph being traversed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the graph being traversed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Graph&#60;V, E&#62; getGraph()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_72'>1</a>
+<span>
+1. getGraph : replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::getGraph &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the cross component traversal flag - indicates whether to traverse the graph across</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * connected components.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param crossComponentTraversal if &#60;code&#62;true&#60;/code&#62; traverses across connected components.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void setCrossComponentTraversal(boolean crossComponentTraversal)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.crossComponentTraversal = crossComponentTraversal;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Test whether this iterator is set to traverse the graph across connected components.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return &#60;code&#62;true&#60;/code&#62; if traverses across connected components, otherwise</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         &#60;code&#62;false&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isCrossComponentTraversal()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_95'/>
+95
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_95'>2</a>
+<span>
+1. isCrossComponentTraversal : replaced boolean return with false for org/jgrapht/traverse/AbstractGraphIterator::isCrossComponentTraversal &rarr; KILLED<br/>
+2. isCrossComponentTraversal : replaced boolean return with true for org/jgrapht/traverse/AbstractGraphIterator::isCrossComponentTraversal &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return crossComponentTraversal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void setReuseEvents(boolean reuseEvents)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        this.reuseEvents = reuseEvents;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isReuseEvents()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_107'>2</a>
+<span>
+1. isReuseEvents : replaced boolean return with false for org/jgrapht/traverse/AbstractGraphIterator::isReuseEvents &rarr; SURVIVED<br/>
+2. isReuseEvents : replaced boolean return with true for org/jgrapht/traverse/AbstractGraphIterator::isReuseEvents &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return reuseEvents;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void addTraversalListener(TraversalListener&#60;V, E&#62; l)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        traversalListeners.add(l);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        nListeners = traversalListeners.size();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void remove()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        throw new UnsupportedOperationException(&#34;remove&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void removeTraversalListener(TraversalListener&#60;V, E&#62; l)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        traversalListeners.remove(l);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        nListeners = traversalListeners.size();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Informs all listeners that the traversal of the current connected component finished.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e the connected component finished event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void fireConnectedComponentFinished(ConnectedComponentTraversalEvent e)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (TraversalListener&#60;V, E&#62; l : traversalListeners) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_138'>1</a>
+<span>
+1. fireConnectedComponentFinished : removed call to org/jgrapht/event/TraversalListener::connectedComponentFinished &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            l.connectedComponentFinished(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Informs all listeners that a traversal of a new connected component has started.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e the connected component started event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void fireConnectedComponentStarted(ConnectedComponentTraversalEvent e)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (TraversalListener&#60;V, E&#62; l : traversalListeners) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_150'>1</a>
+<span>
+1. fireConnectedComponentStarted : removed call to org/jgrapht/event/TraversalListener::connectedComponentStarted &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            l.connectedComponentStarted(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Informs all listeners that a the specified edge was visited.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e the edge traversal event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void fireEdgeTraversed(EdgeTraversalEvent&#60;E&#62; e)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (TraversalListener&#60;V, E&#62; l : traversalListeners) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_162'/>
+162
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_162'>1</a>
+<span>
+1. fireEdgeTraversed : removed call to org/jgrapht/event/TraversalListener::edgeTraversed &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            l.edgeTraversed(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Informs all listeners that a the specified vertex was visited.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e the vertex traversal event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void fireVertexTraversed(VertexTraversalEvent&#60;V&#62; e)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (TraversalListener&#60;V, E&#62; l : traversalListeners) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_174'>1</a>
+<span>
+1. fireVertexTraversed : removed call to org/jgrapht/event/TraversalListener::vertexTraversed &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            l.vertexTraversed(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Informs all listeners that a the specified vertex was finished.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e the vertex traversal event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void fireVertexFinished(VertexTraversalEvent&#60;V&#62; e)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (TraversalListener&#60;V, E&#62; l : traversalListeners) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_186'>1</a>
+<span>
+1. fireVertexFinished : removed call to org/jgrapht/event/TraversalListener::vertexFinished &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            l.vertexFinished(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create a vertex traversal event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param vertex the vertex</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the event</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected VertexTraversalEvent&#60;V&#62; createVertexTraversalEvent(V vertex)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_198'/>
+198
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_198'>1</a>
+<span>
+1. createVertexTraversalEvent : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (reuseEvents) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_199'/>
+199
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_199'>1</a>
+<span>
+1. createVertexTraversalEvent : removed call to org/jgrapht/traverse/AbstractGraphIterator$FlyweightVertexEvent::setVertex &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            reusableVertexEvent.setVertex(vertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_200'/>
+200
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_200'>1</a>
+<span>
+1. createVertexTraversalEvent : replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createVertexTraversalEvent &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return reusableVertexEvent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_202'/>
+202
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_202'>1</a>
+<span>
+1. createVertexTraversalEvent : replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createVertexTraversalEvent &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return new VertexTraversalEvent&#60;&#62;(this, vertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create an edge traversal event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param edge the edge</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the event</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected EdgeTraversalEvent&#60;E&#62; createEdgeTraversalEvent(E edge)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_214'/>
+214
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_214'>1</a>
+<span>
+1. createEdgeTraversalEvent : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (isReuseEvents()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_215'/>
+215
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_215'>1</a>
+<span>
+1. createEdgeTraversalEvent : removed call to org/jgrapht/traverse/AbstractGraphIterator$FlyweightEdgeEvent::setEdge &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            reusableEdgeEvent.setEdge(edge);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_216'/>
+216
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_216'>1</a>
+<span>
+1. createEdgeTraversalEvent : replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createEdgeTraversalEvent &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return reusableEdgeEvent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_218'/>
+218
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_218'>1</a>
+<span>
+1. createEdgeTraversalEvent : replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createEdgeTraversalEvent &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return new EdgeTraversalEvent&#60;&#62;(this, edge);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_223'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * A reusable edge event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_224'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @author Barak Naveh</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_226'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_227'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static class FlyweightEdgeEvent&#60;VV, localE&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_228'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        extends</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        EdgeTraversalEvent&#60;localE&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private static final long serialVersionUID = 4051327833765000755L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_232'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_233'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_234'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Creates a new FlyweightEdgeEvent.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_235'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_236'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param eventSource the source of the event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_237'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param edge the traversed edge.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_238'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_239'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public FlyweightEdgeEvent(Object eventSource, localE edge)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_240'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_241'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            super(eventSource, edge);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_242'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_243'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_244'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_245'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Sets the edge of this event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_246'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_247'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param edge the edge to be set.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_248'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_249'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        protected void setEdge(localE edge)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_250'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_251'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            this.edge = edge;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_252'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_253'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_254'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_255'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_256'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * A reusable vertex event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_257'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_258'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @author Barak Naveh</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_259'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_260'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static class FlyweightVertexEvent&#60;VV&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_261'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        extends</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_262'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        VertexTraversalEvent&#60;VV&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_263'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_264'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private static final long serialVersionUID = 3834024753848399924L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_265'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_266'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_267'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Creates a new FlyweightVertexEvent.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_268'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_269'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param eventSource the source of the event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_270'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param vertex the traversed vertex.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_271'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_272'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public FlyweightVertexEvent(Object eventSource, VV vertex)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_273'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_274'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            super(eventSource, vertex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_275'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_276'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_277'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_278'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Sets the vertex of this event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_279'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_280'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param vertex the vertex to be set.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_281'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_282'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        protected void setVertex(VV vertex)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_283'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_284'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            this.vertex = vertex;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_285'/>
+285
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_285'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_286'/>
+286
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_286'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_287'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@41941ede_288'/>
+288
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_288'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getGraph<br/><b>Killed by : </b>org.jgrapht.traverse.ClosestFirstIteratorTest.testMultipleStarts(org.jgrapht.traverse.ClosestFirstIteratorTest)</span></span> replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::getGraph &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isCrossComponentTraversal<br/><b>Killed by : </b>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testUnconnectedGraph(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest)</span></span> replaced boolean return with false for org/jgrapht/traverse/AbstractGraphIterator::isCrossComponentTraversal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isCrossComponentTraversal<br/><b>Killed by : </b>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineAncestors01(org.jgrapht.graph.DirectedAcyclicGraphTest)</span></span> replaced boolean return with true for org/jgrapht/traverse/AbstractGraphIterator::isCrossComponentTraversal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_107'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReuseEvents<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for org/jgrapht/traverse/AbstractGraphIterator::isReuseEvents &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReuseEvents<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/jgrapht/traverse/AbstractGraphIterator::isReuseEvents &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fireConnectedComponentFinished<br/><b>Killed by : </b>org.jgrapht.generate.BarabasiAlbertForestGeneratorTest.testNoAdditionalNodes(org.jgrapht.generate.BarabasiAlbertForestGeneratorTest)</span></span> removed call to org/jgrapht/event/TraversalListener::connectedComponentFinished &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fireConnectedComponentStarted<br/><b>Killed by : </b>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testUnconnectedGraph(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest)</span></span> removed call to org/jgrapht/event/TraversalListener::connectedComponentStarted &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_162'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fireEdgeTraversed<br/><b>Killed by : </b>none</span></span> removed call to org/jgrapht/event/TraversalListener::edgeTraversed &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fireVertexTraversed<br/><b>Killed by : </b>org.jgrapht.traverse.DegeneracyOrderingIteratorTest.testGraphWithListener(org.jgrapht.traverse.DegeneracyOrderingIteratorTest)</span></span> removed call to org/jgrapht/event/TraversalListener::vertexTraversed &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fireVertexFinished<br/><b>Killed by : </b>org.jgrapht.traverse.DegeneracyOrderingIteratorTest.testGraphWithListener(org.jgrapht.traverse.DegeneracyOrderingIteratorTest)</span></span> removed call to org/jgrapht/event/TraversalListener::vertexFinished &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_198'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createVertexTraversalEvent<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_199'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createVertexTraversalEvent<br/><b>Killed by : </b>none</span></span> removed call to org/jgrapht/traverse/AbstractGraphIterator$FlyweightVertexEvent::setVertex &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_200'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createVertexTraversalEvent<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createVertexTraversalEvent &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createVertexTraversalEvent<br/><b>Killed by : </b>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testUnconnectedGraph(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest)</span></span> replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createVertexTraversalEvent &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_214'>214</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_214'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createEdgeTraversalEvent<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_215'>215</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_215'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createEdgeTraversalEvent<br/><b>Killed by : </b>none</span></span> removed call to org/jgrapht/traverse/AbstractGraphIterator$FlyweightEdgeEvent::setEdge &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_216'>216</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_216'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createEdgeTraversalEvent<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createEdgeTraversalEvent &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@41941ede_218'>218</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@41941ede_218'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createEdgeTraversalEvent<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/jgrapht/traverse/AbstractGraphIterator::createEdgeTraversalEvent &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.jgrapht.generate.NamedGraphGeneratorTest.testBrinkmannGraph(org.jgrapht.generate.NamedGraphGeneratorTest) (1 ms)</li><li>org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest.testTED_treeWithOneVertex_to_treeWithOneVertex(org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest) (0 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testViolatedCapacityConstraint(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph2(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[59](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (15 ms)</li><li>org.jgrapht.alg.lca.NaiveLCAFinderTest.testLoops(org.jgrapht.alg.lca.NaiveLCAFinderTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[36](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.lca.TarjanLCAFinderTest.testSmallDisconnectedTrees(org.jgrapht.alg.lca.TarjanLCAFinderTest) (2046 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testChristofides[10 Points](org.jgrapht.alg.tour.GeometricTSPTest) (668 ms)</li><li>org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest.testHugeNumberOfChildren(org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest) (1056 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[71](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (18 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineAncestors02(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkEmptyGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (333 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance2(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[13](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[94](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (11 ms)</li><li>org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest.testExampleGraph(org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testGomoryHuExampleGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[60](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[47](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkClawGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (3 ms)</li><li>org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest.testGraph(org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest) (1 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testGreedy[100 Points](org.jgrapht.alg.tour.GeometricTSPTest) (687 ms)</li><li>org.jgrapht.GraphTestsTest.testIsTree(org.jgrapht.GraphTestsTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[93](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (32 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[83](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (16 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testRandomGraphsSmall(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (132 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testSingleEdgeGraph(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.temp(org.jgrapht.alg.cycle.ChinesePostmanTest) (4 ms)</li><li>org.jgrapht.alg.lca.NaiveLCAFinderTest.testNoLca(org.jgrapht.alg.lca.NaiveLCAFinderTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkMoserSpindleGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testSmall(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[24](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[14](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.lca.BinaryLiftingLCAFinderTest.randomHugePossiblyDisconnectedTree(org.jgrapht.alg.lca.BinaryLiftingLCAFinderTest) (1120 ms)</li><li>org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest.testDisconnectedGraph(org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest) (3 ms)</li><li>org.jgrapht.generate.NamedGraphGeneratorTest.testDoyleGraph(org.jgrapht.generate.NamedGraphGeneratorTest) (14 ms)</li><li>org.jgrapht.alg.isomorphism.ColorRefinementIsomorphismInspectorTest.testGetMappingsForIsomorphicForests(org.jgrapht.alg.isomorphism.ColorRefinementIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkConfigurationType3(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (7 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkKrackhardtKiteGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1839 ms)</li><li>org.jgrapht.alg.lca.NaiveLCAFinderTest.testLcaIsOneOfTheNodes(org.jgrapht.alg.lca.NaiveLCAFinderTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[8](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testBug1169182(org.jgrapht.traverse.DepthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[95](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkDiamondGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInvalidGraph(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance4(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (8 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[69](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testRandomForests(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (4241 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[49](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[61](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.traverse.MaximumCardinalityIteratorTest.testEvents(org.jgrapht.traverse.MaximumCardinalityIteratorTest) (1 ms)</li><li>org.jgrapht.traverse.LexBreadthFirstIteratorTest.testEvents(org.jgrapht.traverse.LexBreadthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.tour.TwoApproxMetricTSPTest.testWikiExampleSymmetric4Cities(org.jgrapht.alg.tour.TwoApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[81](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (28 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexBestImprovement(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (64 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testRandomUndirectedFixedSeed(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (187 ms)</li><li>org.jgrapht.perf.shortestpath.DijkstraShortestPathPerformanceTest.testBenchmark(org.jgrapht.perf.shortestpath.DijkstraShortestPathPerformanceTest) (5569752 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour6(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testLineGraph2(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[23](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour8(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (1 ms)</li><li>org.jgrapht.alg.lca.BinaryLiftingLCAFinderTest.testSmallDisconnectedTrees(org.jgrapht.alg.lca.BinaryLiftingLCAFinderTest) (1865 ms)</li><li>org.jgrapht.GraphTestsTest.testIsForest2(org.jgrapht.GraphTestsTest) (1 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour4(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[70](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (11 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[50](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.GraphTestsTest.testIsConnectedDirected(org.jgrapht.GraphTestsTest) (2 ms)</li><li>org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest.testTarjan1985(org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testUndirectedEulerian5(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (1 ms)</li><li>org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest.testTED_tree2_to_tree3(org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest) (1 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testPseudograph(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (0 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceSubtree(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (884 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[48](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[9](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance6(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (6 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testIsMaximumMatching3(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testOneVertex(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (0 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testDirectedWithDoubledCycle(org.jgrapht.alg.cycle.CycleDetectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[68](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (22 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest.testLessThanKPaths(org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest) (1 ms)</li><li>org.jgrapht.generate.BarabasiAlbertForestGeneratorTest.testNoAdditionalNodes(org.jgrapht.generate.BarabasiAlbertForestGeneratorTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testHugeRandomTree(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (1472 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph3(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[35](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[62](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph3(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[15](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[82](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (12 ms)</li><li>org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest.testSmallForest2(org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.generate.NamedGraphGeneratorTest.testFolkmanGraph(org.jgrapht.generate.NamedGraphGeneratorTest) (19 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkHeawoodGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (25268 ms)</li><li>org.jgrapht.alg.matching.HopcroftKarpMaximumCardinalityBipartiteMatchingTest.testGraph2(org.jgrapht.alg.matching.HopcroftKarpMaximumCardinalityBipartiteMatchingTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testGraphWithNoEdges(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (0 ms)</li><li>org.jgrapht.generate.PruferTreeGeneratorTest.testOneVertex(org.jgrapht.generate.PruferTreeGeneratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[79](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (11 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[85](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (17 ms)</li><li>org.jgrapht.generate.WindmillGraphsGeneratorTest.testButterflyGraph(org.jgrapht.generate.WindmillGraphsGeneratorTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest.testSmallForest(org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.tour.TwoApproxMetricTSPTest.testComplete(org.jgrapht.alg.tour.TwoApproxMetricTSPTest) (29 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[39](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[51](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testSmall2(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[16](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[56](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[91](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (31 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testTopoIterationOrderComplexGraph(org.jgrapht.graph.DirectedAcyclicGraphTest) (204 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph1(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[0](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest.testTED_treeWithOneVertex_to_articleTree2(org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkGrötzschGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testChristofides[1,000 Points](org.jgrapht.alg.tour.GeometricTSPTest) (1199 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testSmall(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testCornerCase(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[74](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (17 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testGraphWithMultipleEdges(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph9(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testSquareGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[80](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest.testRandomForests(org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest) (630 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[40](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineDescendants01(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[5](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.isomorphism.IsomorphicGraphMappingTest.testCompositionOfRandomMappings(org.jgrapht.alg.isomorphism.IsomorphicGraphMappingTest) (751 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph14(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (0 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testUnrootedIsomorphism(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[34](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testPseudoGraph(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (1 ms)</li><li>org.jgrapht.alg.connectivity.BlockCutpointGraphTest.randomGraphTest(org.jgrapht.alg.connectivity.BlockCutpointGraphTest) (16 ms)</li><li>org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest.testHugeRandomForest(org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest) (1107 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour10(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[96](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (24 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[11](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[21](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstance2(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testRandomUndirected(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (192 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.DepthFirstIteratorTest) (0 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph15(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (0 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testTriangleGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testGraphWithSelfloop(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstance1(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkTutteGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (32 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testNonIsomorphicAsUnrootedButAsRooted(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.lca.TarjanLCAFinderTest.randomHugePossiblyDisconnectedTree(org.jgrapht.alg.lca.TarjanLCAFinderTest) (1465 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[32](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testEulerianCycleUndirectedVertexList(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (0 ms)</li><li>org.jgrapht.alg.lca.HeavyPathLCAFinderTest.randomHugePossiblyDisconnectedTree(org.jgrapht.alg.lca.HeavyPathLCAFinderTest) (875 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNoSidetracksInGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[66](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[2](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testRandomGraphsLarge(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (105 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[7](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[26](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineAncestors01(org.jgrapht.graph.DirectedAcyclicGraphTest) (0 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour9(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testHugeNumberOfChildren(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (735 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[64](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (18 ms)</li><li>org.jgrapht.traverse.ClosestFirstIteratorTest.testRadius(org.jgrapht.traverse.ClosestFirstIteratorTest) (1 ms)</li><li>org.jgrapht.GraphTestsTest.testIsConnectedUndirected(org.jgrapht.GraphTestsTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testCornerCase(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[37](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance5(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (8 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testSmall2(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testUndirectedEulerian6(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (0 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour5(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testCornerCase3(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest.testRandomGraphs(org.jgrapht.alg.flow.PadbergRaoOddMinimumCutsetTest) (414 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[77](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (34 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph10(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testSingleVertex(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.traverse.DegeneracyOrderingIteratorTest.testGraphWithListener(org.jgrapht.traverse.DegeneracyOrderingIteratorTest) (1 ms)</li><li>org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest.testGraph1(org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkPetersenGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[18](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testOnRandomGraphs(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (5419 ms)</li><li>org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest.testTED_tree1_to_articleTree2(org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest) (0 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testUndirectedEulerian3(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[98](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (32 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testEulerianCycleUndirected2(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[58](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[45](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSourceEqualsTarget(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.traverse.EdgeSelectionTest.testEdgeSelectionOverride(org.jgrapht.traverse.EdgeSelectionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[72](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.shortestpath.TreeMeasurerTest.testTwoCenters(org.jgrapht.alg.shortestpath.TreeMeasurerTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkBullGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (35 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[99](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (37 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[3](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testWikipediaGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testMultipleEdges01(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[19](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testUndirectedEulerian2(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[31](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[76](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testRandomTrees(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (407 ms)</li><li>org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest.testTED_articleTree1_to_articleTree2(org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest) (2 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkGoldnerHararyGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2479 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testWikipediaGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph1(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[20](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[87](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (30 ms)</li><li>org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest.testBerry2010(org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest) (2 ms)</li><li>org.jgrapht.traverse.BreadthFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.BreadthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkThomsenGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[53](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (12 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[54](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance3(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (5 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testEulerianCycleUndirected3(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (226 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph4(org.jgrapht.alg.cycle.ChinesePostmanTest) (0 ms)</li><li>org.jgrapht.traverse.ClosestFirstIteratorTest.testDirectedGraphViaCCI(org.jgrapht.traverse.ClosestFirstIteratorTest) (1 ms)</li><li>org.jgrapht.traverse.BreadthFirstIteratorTest.testDirectedGraphViaCCI(org.jgrapht.traverse.BreadthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest.testPseudograph1(org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest) (1 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testDirectedGraphViaCCI(org.jgrapht.traverse.DepthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.IsomorphicGraphMappingTest.testIdentity(org.jgrapht.alg.isomorphism.IsomorphicGraphMappingTest) (0 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testCornerCase2(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testDirectedGraph(org.jgrapht.traverse.DepthFirstIteratorTest) (6 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testDisconnectedGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (4 ms)</li><li>org.jgrapht.traverse.BreadthFirstIteratorTest.testDirectedGraphNullConstructors(org.jgrapht.traverse.BreadthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testDirectedWithoutCycle(org.jgrapht.alg.cycle.CycleDetectorTest) (0 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testDirectedWithCycle(org.jgrapht.alg.cycle.CycleDetectorTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testNotShortestPathEdgesGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[89](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testDisconnectedTree(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[75](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.traverse.ClosestFirstIteratorTest.testDirectedGraphNullConstructors(org.jgrapht.traverse.ClosestFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testTriangleGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testCornerCase3(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[29](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testIsMaximum1(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (0 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testDisconnectedGraph(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (2 ms)</li><li>org.jgrapht.alg.matching.HopcroftKarpMaximumCardinalityBipartiteMatchingTest.testRandomBipartiteGraphs(org.jgrapht.alg.matching.HopcroftKarpMaximumCardinalityBipartiteMatchingTest) (148 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[41](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkJewel(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2 ms)</li><li>org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest.testRandomGraphs(org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest) (565 ms)</li><li>org.jgrapht.alg.lca.NaiveLCAFinderTest.testNormalCases(org.jgrapht.alg.lca.NaiveLCAFinderTest) (1 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testCycleDetectionInRandomGraphBuild(org.jgrapht.graph.DirectedAcyclicGraphTest) (197 ms)</li><li>org.jgrapht.generate.BarabasiAlbertForestGeneratorTest.testUndirectedWithOneInitialNode(org.jgrapht.generate.BarabasiAlbertForestGeneratorTest) (0 ms)</li><li>org.jgrapht.alg.lca.NaiveLCAFinderTest.testArrivalOrder(org.jgrapht.alg.lca.NaiveLCAFinderTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[43](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.traverse.BreadthFirstIteratorTest.testDirectedGraph(org.jgrapht.traverse.BreadthFirstIteratorTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[30](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[90](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (24 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph6(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (2 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph2(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.generate.NamedGraphGeneratorTest.testChvatalGraph(org.jgrapht.generate.NamedGraphGeneratorTest) (0 ms)</li><li>org.jgrapht.traverse.ClosestFirstIteratorTest.testNonCrossComponentTraversal(org.jgrapht.traverse.ClosestFirstIteratorTest) (0 ms)</li><li>org.jgrapht.generate.GraphGeneratorTest.testScaleFreeGraphGenerator(org.jgrapht.generate.GraphGeneratorTest) (20 ms)</li><li>org.jgrapht.alg.isomorphism.ColorRefinementIsomorphismInspectorTest.testGetMappingsForTrees(org.jgrapht.alg.isomorphism.ColorRefinementIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexAndSubtree(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (2425 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[10](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph8(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (2 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexTabu(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (791 ms)</li><li>org.jgrapht.traverse.BreadthFirstIteratorTest.searchTreeTest(org.jgrapht.traverse.BreadthFirstIteratorTest) (2 ms)</li><li>org.jgrapht.alg.connectivity.ConnectivityInspectorTest.testDirectedGraph(org.jgrapht.alg.connectivity.ConnectivityInspectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[28](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testEulerianCycleUndirected4(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (1 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testUnconnectedGraph(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testRestHeapGraph(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkPyramid(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (20 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[88](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (13 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkRoutine3(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[4](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertex(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (64 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkButterflyGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (11 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexTabuBestImprovement(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (609 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph1(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[42](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[55](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (15 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testGreedy[1,000 Points](org.jgrapht.alg.tour.GeometricTSPTest) (1112 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstance1(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (18 ms)</li><li>org.jgrapht.alg.connectivity.BlockCutpointGraphTest.randomDirectedGraphTest(org.jgrapht.alg.connectivity.BlockCutpointGraphTest) (43 ms)</li><li>org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest.testRandomGraphs(org.jgrapht.alg.flow.GusfieldEquivalentFlowTreeTest) (111 ms)</li><li>org.jgrapht.generate.PruferTreeGeneratorTest.testRandomSizes(org.jgrapht.generate.PruferTreeGeneratorTest) (1497 ms)</li><li>org.jgrapht.alg.isomorphism.IsomorphicGraphMappingTest.testCompositionOfMappings(org.jgrapht.alg.isomorphism.IsomorphicGraphMappingTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[22](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (5 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testCornerCase2(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkConfigurationType2(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (2 ms)</li><li>org.jgrapht.alg.lca.NaiveLCAFinderTest.testLca(org.jgrapht.alg.lca.NaiveLCAFinderTest) (1 ms)</li><li>org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest.testSimpleGraph1(org.jgrapht.alg.clique.CliqueMinimalSeparatorDecompositionTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testNoHeavyEdges(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (0 ms)</li><li>org.jgrapht.alg.connectivity.ConnectivityInspectorTest.testIsGraphConnected(org.jgrapht.alg.connectivity.ConnectivityInspectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[33](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceSubtreeTabu(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (1424 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testGomoryHuExampleGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.ColorRefinementIsomorphismInspectorTest.testGetMappingsForRegularGraphs(org.jgrapht.alg.isomorphism.ColorRefinementIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[6](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[27](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.traverse.ClosestFirstIteratorTest.testDirectedGraph(org.jgrapht.traverse.ClosestFirstIteratorTest) (5 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testSquareGraph(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (2 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[67](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testUndirectedEulerian7(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (0 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testInstanceVertexAndSubtreeTabu(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (17666 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testSimpleGraph3(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (1 ms)</li><li>org.jgrapht.alg.tour.TwoApproxMetricTSPTest.testStar(org.jgrapht.alg.tour.TwoApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[73](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (20 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstance3(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (1 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testChristofides[100 Points](org.jgrapht.alg.tour.GeometricTSPTest) (594 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[63](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[44](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (7 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[86](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (2 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testHugeNumberOfChildren(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (992 ms)</li><li>org.jgrapht.traverse.BreadthFirstIteratorTest.searchTreeDirectedCycleTest(org.jgrapht.traverse.BreadthFirstIteratorTest) (10 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testEulerianCycleUndirected1(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (1 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineDescendants00(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineAncestors00(org.jgrapht.graph.DirectedAcyclicGraphTest) (1 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkFranklinGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (9626 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph2(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest.testTED_articleTree1_to_tree1(org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testGraphWithNoEdges(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testSmallTree(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (0 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testLineGraph(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (127 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testHugeTree(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (7479 ms)</li><li>org.jgrapht.generate.BarabasiAlbertForestGeneratorTest.testRandomTrees(org.jgrapht.generate.BarabasiAlbertForestGeneratorTest) (377 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest.testCyclicGraph1(org.jgrapht.alg.shortestpath.EppsteinShortestPathIteratorTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkDodecahedronGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (6 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[12](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (3 ms)</li><li>org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest.testGraph7(org.jgrapht.alg.matching.DenseEdmondsMaximumCardinalityMatchingTest) (2 ms)</li><li>org.jgrapht.graph.DirectedAcyclicGraphTest.testDetermineDescendants02(org.jgrapht.graph.DirectedAcyclicGraphTest) (0 ms)</li><li>org.jgrapht.generate.BarabasiAlbertForestGeneratorTest.testUndirected(org.jgrapht.generate.BarabasiAlbertForestGeneratorTest) (1 ms)</li><li>org.jgrapht.alg.lca.HeavyPathLCAFinderTest.testSmallDisconnectedTrees(org.jgrapht.alg.lca.HeavyPathLCAFinderTest) (2052 ms)</li><li>org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest.testTED_articleTree1_to_treeWithOneVertex(org.jgrapht.alg.similarity.ZhangShashaTreeEditDistanceTest) (1 ms)</li><li>org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest.testSingleVertex(org.jgrapht.alg.isomorphism.AHUForestIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.GraphTestsTest.testIsForest1(org.jgrapht.GraphTestsTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[46](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (9 ms)</li><li>org.jgrapht.alg.cycle.PatonCycleBaseTest.testPatonCycleBasis8(org.jgrapht.alg.cycle.PatonCycleBaseTest) (256 ms)</li><li>org.jgrapht.alg.tour.GeometricTSPTest.testGreedy[10 Points](org.jgrapht.alg.tour.GeometricTSPTest) (484 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour7(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[84](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (18 ms)</li><li>org.jgrapht.generate.PruferTreeGeneratorTest.testHugeSize(org.jgrapht.generate.PruferTreeGeneratorTest) (563 ms)</li><li>org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest.testGetTour3(org.jgrapht.alg.tour.ChristofidesThreeHalvesApproxMetricTSPTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[17](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testViolatedCapacityConstraint(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.traverse.DepthFirstIteratorTest.testDirectedGraphNullConstructors(org.jgrapht.traverse.DepthFirstIteratorTest) (1 ms)</li><li>org.jgrapht.traverse.ClosestFirstIteratorTest.testMultipleStarts(org.jgrapht.traverse.ClosestFirstIteratorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[57](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (15 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testRandomTrees(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (1200 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[97](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (6 ms)</li><li>org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest.testUnconnectedGraph(org.jgrapht.alg.spanning.AhujaOrlinSharmaCapacitatedMinimumSpanningTreeTest) (0 ms)</li><li>org.jgrapht.alg.lca.EulerTourRMQLCAFinderTest.testSmallDisconnectedTrees(org.jgrapht.alg.lca.EulerTourRMQLCAFinderTest) (1538 ms)</li><li>org.jgrapht.alg.cycle.ChinesePostmanTest.testUndirectedGraph5(org.jgrapht.alg.cycle.ChinesePostmanTest) (1 ms)</li><li>org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest.testRandomGraphs(org.jgrapht.alg.flow.GusfieldGomoryHuCutTreeTest) (100 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testSingleVertex(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (0 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testDisconnectedTree(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[38](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (8 ms)</li><li>org.jgrapht.alg.lca.NaiveLCAFinderTest.testTwoLcas(org.jgrapht.alg.lca.NaiveLCAFinderTest) (0 ms)</li><li>org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest.testCyclicGraph(org.jgrapht.alg.shortestpath.EppsteinKShortestPathTest) (1 ms)</li><li>org.jgrapht.alg.decomposition.HeavyPathDecompositionTest.testLineGraph(org.jgrapht.alg.decomposition.HeavyPathDecompositionTest) (1 ms)</li><li>org.jgrapht.alg.cycle.HierholzerEulerianCycleTest.testUndirectedDisconnectedEulerian(org.jgrapht.alg.cycle.HierholzerEulerianCycleTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[78](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (14 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[92](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (33 ms)</li><li>org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest.testNonIsomorphic(org.jgrapht.alg.isomorphism.AHURootedTreeIsomorphismInspectorTest) (1 ms)</li><li>org.jgrapht.alg.lca.EulerTourRMQLCAFinderTest.randomHugePossiblyDisconnectedTree(org.jgrapht.alg.lca.EulerTourRMQLCAFinderTest) (612 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[52](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (10 ms)</li><li>org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest.testLineGraph(org.jgrapht.alg.isomorphism.AHUUnrootedTreeIsomorphismInspectorTest) (170 ms)</li><li>org.jgrapht.traverse.IgnoreDirectionTest.testDirectedGraph(org.jgrapht.traverse.IgnoreDirectionTest) (1 ms)</li><li>org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest.testInstanceWithRandomness(org.jgrapht.alg.spanning.EsauWilliamsCapacitatedMinimumSpanningTreeTest) (5 ms)</li><li>org.jgrapht.alg.cycle.CycleDetectorTest.testVertexEquals(org.jgrapht.alg.cycle.CycleDetectorTest) (0 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[65](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (21 ms)</li><li>org.jgrapht.alg.shortestpath.TreeMeasurerTest.testOneCenter(org.jgrapht.alg.shortestpath.TreeMeasurerTest) (0 ms)</li><li>org.jgrapht.alg.cycle.BergeGraphInspectorTest.checkHerschelGraph(org.jgrapht.alg.cycle.BergeGraphInspectorTest) (7301 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[25](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (4 ms)</li><li>org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest.testGeneratedGraph[1](org.jgrapht.alg.decomposition.DulmageMendelsohnDecompositionTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.5.2
+
+</body>
+</html>

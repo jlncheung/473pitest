@@ -1,0 +1,2556 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>MinimumCostFlowProblem.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (C) Copyright 2018-2020, by Timofey Chudakov and Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * JGraphT : a free Java graph-theory library</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the CONTRIBUTORS.md file distributed with this work for additional</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This program and the accompanying materials are made available under the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * terms of the Eclipse Public License 2.0 which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.eclipse.org/legal/epl-2.0, or the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * GNU Lesser General Public License v2.1 or later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * which is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SPDX-License-Identifier: EPL-2.0 OR LGPL-2.1-or-later</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.jgrapht.alg.flow.mincost;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jgrapht.alg.interfaces.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.function.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class represents a &#60;a href=&#34;https://en.wikipedia.org/wiki/Minimum-cost_flow_problem&#34;&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * minimum cost flow problem&#60;/a&#62;. It serves as input for the minimum cost flow algorithms.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The minimum cost flow problem is defined as follows: \[ \begin{align} \mbox{minimize}~&#38;amp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * \sum_{e\in \delta^+(s)}c_e\cdot f_e &#38;amp;\\ \mbox{s.t. }&#38;amp;\sum_{e\in \delta^-(i)} f_e -</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * \sum_{e\in \delta^+(i)} f_e = b_e &#38;amp; \forall i\in V\\ &#38;amp;l_e\leq f_e \leq u_e &#38;amp; \forall</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * e\in E \end{align} \] Here $\delta^+(i)$ and $\delta^-(i)$ denote the outgoing and incoming edges</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of vertex $i$ respectively. The parameters $c_{e}$ define a cost for each unit of flow on the arc</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * $e$, $l_{e}$ define minimum arc flow and $u_{e}$ define maximum arc flow.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;V&#62; the graph vertex type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; the graph edge type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Timofey Chudakov</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see MinimumCostFlowAlgorithm</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public interface MinimumCostFlowProblem&#60;V, E&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the flow network</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the flow network</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Graph&#60;V, E&#62; getGraph();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a function which defines the supply and demand of each node in thet network. Supplies</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * can be positive, negative or 0. Nodes with positive negative supply are the demand nodes,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * nodes with zero supply are the transhipment nodes. Flow is always directed from nodes with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * postive supply to nodes with negative supply. Summed over all nodes, the total demand should</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * equal 0.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return supply function</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Function&#60;V, Integer&#62; getNodeSupply();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a function which specifies the minimum capacity of an arc. The minimum capacity is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the minimum amount of flow that has to go through an arc.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return arc capacity lower bounding function</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Function&#60;E, Integer&#62; getArcCapacityLowerBounds();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a function which specifies the maximum capacity of an arc. The flow through an arc</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * cannot exceed this upper bound.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return arc capacity upper bounding function</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Function&#60;E, Integer&#62; getArcCapacityUpperBounds();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Default implementation of a Minimum Cost Flow Problem</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;V&#62; the graph vertex type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;E&#62; the graph edge type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    class MinimumCostFlowProblemImpl&#60;V, E&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        implements</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        MinimumCostFlowProblem&#60;V, E&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Graph&#60;V, E&#62; graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Function&#60;V, Integer&#62; nodeSupplies;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Function&#60;E, Integer&#62; arcCapacityLowerBounds;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Function&#60;E, Integer&#62; arcCapacityUpperBounds;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Constructs a new minimum cost flow problem without arc capacity lower bounds.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param graph the flow network</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param supplyMap the node demands</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param arcCapacityUpperBounds the arc capacity upper bounds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public MinimumCostFlowProblemImpl(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Graph&#60;V, E&#62; graph, Function&#60;V, Integer&#62; supplyMap,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Function&#60;E, Integer&#62; arcCapacityUpperBounds)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            this(graph, supplyMap, arcCapacityUpperBounds, a -&#62; 0);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Constructs a new minimum cost flow problem</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param graph the flow network</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param nodeSupplies the node demands</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param arcCapacityUpperBounds the arc capacity upper bounds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param arcCapacityLowerBounds the arc capacity lower bounds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public MinimumCostFlowProblemImpl(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Graph&#60;V, E&#62; graph, Function&#60;V, Integer&#62; nodeSupplies,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Function&#60;E, Integer&#62; arcCapacityUpperBounds,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Function&#60;E, Integer&#62; arcCapacityLowerBounds)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.graph = Objects.requireNonNull(graph);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.nodeSupplies = Objects.requireNonNull(nodeSupplies);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.arcCapacityUpperBounds = Objects.requireNonNull(arcCapacityUpperBounds);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.arcCapacityLowerBounds = Objects.requireNonNull(arcCapacityLowerBounds);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public Graph&#60;V, E&#62; getGraph()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_134'>1</a>
+<span>
+1. getGraph : replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getGraph &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public Function&#60;V, Integer&#62; getNodeSupply()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_143'>1</a>
+<span>
+1. getNodeSupply : replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getNodeSupply &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return nodeSupplies;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public Function&#60;E, Integer&#62; getArcCapacityLowerBounds()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_152'/>
+152
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_152'>1</a>
+<span>
+1. getArcCapacityLowerBounds : replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getArcCapacityLowerBounds &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return arcCapacityLowerBounds;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public Function&#60;E, Integer&#62; getArcCapacityUpperBounds()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_161'/>
+161
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_161'>1</a>
+<span>
+1. getArcCapacityUpperBounds : replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getArcCapacityUpperBounds &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return arcCapacityUpperBounds;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getGraph<br/><b>Killed by : </b>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest)</span></span> replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getGraph &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNodeSupply<br/><b>Killed by : </b>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest)</span></span> replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getNodeSupply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_152'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getArcCapacityLowerBounds<br/><b>Killed by : </b>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest)</span></span> replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getArcCapacityLowerBounds &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@48b6ef6a_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@48b6ef6a_161'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getArcCapacityUpperBounds<br/><b>Killed by : </b>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest)</span></span> replaced return value with null for org/jgrapht/alg/flow/mincost/MinimumCostFlowProblem$MinimumCostFlowProblemImpl::getArcCapacityUpperBounds &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow12[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow14[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (2 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow9[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow10[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow5[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow3[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow7[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow7[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow9[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow16[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (5 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow14[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (2 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow4[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow12[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow3[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow5[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow8[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow10[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow6[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow2[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow16[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (5 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow3[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow2[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow13[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow10[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (3 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow11[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow12[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow14[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow15[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow16[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (4 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow17[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (8 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow8[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow9[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow7[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow4[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow5[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow6[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow13[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow15[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (3 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow4[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow11[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow8[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow2[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow6[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow6[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow8[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow17[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (8 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow3[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow13[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow2[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow5[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow4[0](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow9[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow7[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow11[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow17[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (7 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow15[3](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (2 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow15[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow14[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (2 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow16[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (4 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow17[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (8 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow10[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow13[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow11[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow12[4](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow2[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow12[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (2 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow1[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow3[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow4[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow15[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (2 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow10[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow16[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (4 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow11[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow14[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow13[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow8[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow7[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow6[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (1 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow17[1](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (8 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow5[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li><li>org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest.testGetMinimumCostFlow9[2](org.jgrapht.alg.flow.mincost.CapacityScalingMinimumCostFlowTest) (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.5.2
+
+</body>
+</html>
